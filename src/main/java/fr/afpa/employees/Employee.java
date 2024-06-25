@@ -235,25 +235,26 @@ class Employee {
 	}
 
 	private boolean checkBirthDay(String dateToCheck) {
-
-		boolean isDate = false;
+		// Check if the length of the date string is exactly 10
 		if (dateToCheck.length() != 10) {
 			return false;
 		}
-		for (int index = 0; index < dateToCheck.length(); index++) {
-			// index = longueur de intupToCheck - 1 = 6
-			char ch = dateToCheck.charAt(index);
-			if (index == 0 || index == 1 || index == 3 || index == 5 || index == 6 || index == 8 || index == 9) {
 
-				// vérification du caractère, s'agit-il d'un chiffre ?
-				if (ch == '-') {
-					isDate = true;
-				} else {
-					return false;
-				}
+		// Check each character of the date string
+		for (int index = 0; index < dateToCheck.length(); index++) {
+			char ch = dateToCheck.charAt(index);
+
+			// Positions 0-3, 5-6, 8-9 should be digits
+			if ((index == 0 || index == 1 || index == 2 || index == 3 ||
+					index == 5 || index == 6 || index == 8 || index == 9) && !Character.isDigit(ch)) {
+				return false;
 			}
 
+			// Positions 4 and 7 should be '-'
+			if ((index == 4 || index == 7) && ch != '-') {
+				return false;
+			}
 		}
-		return isDate;
+		return true;
 	}
 }
